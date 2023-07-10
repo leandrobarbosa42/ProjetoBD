@@ -8,19 +8,21 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 	
-	private final String nomeBanco = "MercadinhoADA";
-	private final String USER = "userID";
-	private final String PASS = "password";
-	private final String DRIVER =  "net.sourceforge.jtds.jdbc.Driver";
-	private final String URL = "jdbc:jtds:sqlserver://localhost:1433/";
+	private static final String USER = "sa";
+	private static final String PASS = "123Peixe";
+	private static final String DRIVER = "net.sourceforge.jtds.jdbc.Driver";
+	private static final String URL = "jdbc:jtds:sqlserver://localhost:1433/MercadinhoADA";
 	
-	public Connection getConnection(){
+	public static Connection getConnection(){
 		try {
 			Class.forName(DRIVER);
-			return DriverManager.getConnection(URL+nomeBanco, USER, PASS);
+			return DriverManager.getConnection(URL, USER, PASS);
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new RuntimeException("Erro de conexão: ", e);
+			//throw new RuntimeException("Erro de conexão: ", e);
+			e.getStackTrace();
 		}
+		return null;
+		
 		
 	}
 	

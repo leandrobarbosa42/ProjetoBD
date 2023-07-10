@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import model.bean.Produto;
+import model.dao.ProdutoDAO;
+
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
@@ -16,6 +20,10 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ViewCadastroProduto {
 
@@ -115,7 +123,28 @@ public class ViewCadastroProduto {
 		frame.getContentPane().add(textPdQuantidade);
 		
 		JComboBox comboBoxCategoria = new JComboBox();
+		comboBoxCategoria.setMaximumRowCount(12);
+		comboBoxCategoria.setModel(new DefaultComboBoxModel(new String[] {"Outros", "Alimento enlatado", "Alimento padaria", "Alimento liquidos", "Alimento geral", "Doces", "Temperos", "Hortaliças", "Frutas", "Carnes", "Frios", "Bebidas", "Bebidas Alcoólicas"}));
 		comboBoxCategoria.setBounds(155, 147, 261, 22);
 		frame.getContentPane().add(comboBoxCategoria);
+		
+		JButton btnCadastrarPD = new JButton("Casdastrar");
+		btnCadastrarPD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Produto p = new Produto();
+				ProdutoDAO dao = new ProdutoDAO();
+				
+				p.setDecricao(textPdDescricao.getText());
+				p.setCategoria(comboBoxCategoria.getSelectedItem().toString());
+				p.setQuantidade(Integer.parseInt(textPdQuantidade.getText()));
+				p.setPreco(Double.parseDouble(textFPdPreco.getText()));
+				
+				dao.create(p);
+				
+	
+			}
+		});
+		btnCadastrarPD.setBounds(212, 255, 140, 23);
+		frame.getContentPane().add(btnCadastrarPD);
 	}
 }
