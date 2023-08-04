@@ -3,20 +3,20 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import model.dao.UsuarioDAO;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.SystemColor;
-import javax.swing.JCheckBoxMenuItem;
-import java.awt.Button;
-import java.awt.TextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
+
 
 public class viewLogin {
 
@@ -92,29 +92,21 @@ public class viewLogin {
 		frame.getContentPane().add(passwordPass);
 		
 		JButton btnLogin = new JButton("ENTRAR");
-		btnLogin.setForeground(Color.GREEN);
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UsuarioDAO dao = new UsuarioDAO();
+			if(dao.CheckLogin(textLogin.getText(), passwordPass)) {
+				viewTelaInicial.main(null);
+				frame.dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "Erro ao logar!");
+			}
+				
+			}
+		});
+		btnLogin.setForeground(SystemColor.desktop);
 		btnLogin.setFont(new Font("SansSerif", Font.BOLD, 13));
 		btnLogin.setBounds(321, 91, 90, 73);
 		frame.getContentPane().add(btnLogin);
-		
-		JButton btnCadastro = new JButton("Cadastre-se");
-		btnCadastro.setForeground(Color.BLUE);
-		btnCadastro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				viewCadastro.main(null);
-				frame.dispose();
-			}
-		});
-		btnCadastro.setBorderPainted(false);
-		btnCadastro.setBackground(SystemColor.activeCaptionBorder);
-		btnCadastro.setBounds(16, 209, 171, 28);
-		frame.getContentPane().add(btnCadastro);
-		
-		JButton btnRecuperarSenha = new JButton("Recuperar Senha");
-		btnRecuperarSenha.setForeground(Color.RED);
-		btnRecuperarSenha.setBorderPainted(false);
-		btnRecuperarSenha.setBackground(SystemColor.activeCaptionBorder);
-		btnRecuperarSenha.setBounds(240, 209, 171, 28);
-		frame.getContentPane().add(btnRecuperarSenha);
 	}
 }
