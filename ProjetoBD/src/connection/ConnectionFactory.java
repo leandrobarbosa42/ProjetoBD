@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 	
-	private static final String USER = "sa";
-	private static final String PASS = "123Peixe";
+	private static final String USER = "usuario";
+	private static final String PASS = "senha";
 	private static final String DRIVER = "net.sourceforge.jtds.jdbc.Driver";
 	private static final String URL = "jdbc:jtds:sqlserver://localhost:1433/MercadinhoADA";
 	
